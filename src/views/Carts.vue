@@ -8,7 +8,7 @@
       </li>
       <li class="col-12 col-md-4">
         <div class="alert alert-light rounded-pill mb-0 " role="alert">
-          2.金流付款
+          2.訂購人資訊填寫
         </div>
       </li>
       <li class="col-12 col-md-4">
