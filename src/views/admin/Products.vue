@@ -1,0 +1,3 @@
+<template>
+  <h1>後台商品列表</h1>
+</template>
