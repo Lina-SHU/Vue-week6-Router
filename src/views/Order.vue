@@ -33,7 +33,7 @@
           </div>
           <div class="mb-3">
             <label for="tel">電話<span class="text-danger ms-2">(必填)</span></label>
-            <Field type="text" class="form-control" name="電話" :class="{ 'is-invalid': errors['電話'] }" rules="min:10|required" placeholder="請輸入電話" v-model="user.tel" id="tel"></Field>
+            <Field type="tel" class="form-control" name="電話" :class="{ 'is-invalid': errors['電話'] }" rules="min:10|required" placeholder="請輸入電話" v-model="user.tel" id="tel"></Field>
             <error-message name="電話" class="invalid-feedback"></error-message>
           </div>
           <div class="mb-3">
