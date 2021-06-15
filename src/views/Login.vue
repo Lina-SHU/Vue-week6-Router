@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-8">
-        <h1 class="h2 mt-5 mb-3 text-center">後台管理登入</h1>
+        <h2 class="mt-5 mb-3 text-center">後台管理登入</h2>
         <Form v-slot="{ errors }" @submit="login">
           <div class="mb-3">
             <label for="email">Email</label>

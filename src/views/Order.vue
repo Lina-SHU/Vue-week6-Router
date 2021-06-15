@@ -19,7 +19,7 @@
     </ol>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <h1 class="text-center text-secondary my-3">訂購人資訊填寫</h1>
+        <h1 class="text-center text-secondary my-3 h2">訂購人資訊填寫</h1>
         <Form v-slot="{ errors }" @submit="onSubmit">
           <div class="mb-3">
             <label for="email">Email<span class="text-danger ms-2">(必填)</span></label>

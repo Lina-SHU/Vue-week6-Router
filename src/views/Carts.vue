@@ -18,7 +18,7 @@
       </li>
     </ol>
   </div>
-  <h1 class="text-center text-secondary my-3">購物車列表</h1>
+  <h2 class="text-center text-secondary my-3">購物車列表</h2>
   <button type="button" class="btn btn-danger mb-3" @click="deleteAllCart" v-if="carts.carts && carts.carts.length >= 2">刪除所有商品</button>
   <loading :active="isLoading"></loading>
   <table class="table">
