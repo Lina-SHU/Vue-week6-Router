@@ -42,6 +42,7 @@
 
 <script>
 import swal from 'sweetalert'
+import bus from '../components/bus'
 
 export default {
   data () {
@@ -79,6 +80,13 @@ export default {
               buttons: false,
               timer: 1000
             })
+            return this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`)
+          }
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            bus.emit('cart-number', res.data.data.carts.length)
           }
         })
     }

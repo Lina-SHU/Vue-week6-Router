@@ -64,6 +64,7 @@
 <script>
 import swal from 'sweetalert'
 import pagination from '../components/Pagination.vue'
+import bus from '../components/bus'
 
 export default {
   data () {
@@ -78,13 +79,20 @@ export default {
     getProducts (page = 1) {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products?page=${page}`
-      this.$http.get(url).then((res) => {
-        if (res.data.success) {
-          this.products = res.data.products
-          this.pagination = res.data.pagination
-          this.isLoading = false
-        }
-      })
+      this.$http.get(url)
+        .then((res) => {
+          if (res.data.success) {
+            this.products = res.data.products
+            this.pagination = res.data.pagination
+            return this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`)
+          }
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            bus.emit('cart-number', res.data.data.carts.length)
+          }
+        })
     },
     goToProduct (id) {
       this.$router.push(`/products/${id}`)
@@ -95,13 +103,19 @@ export default {
       this.$http.post(url, { data: { product_id: id, qty: 1 } })
         .then((res) => {
           if (res.data.success) {
-            this.isLoading = false
             swal({
               text: '已加入購物車',
               icon: 'success',
               buttons: false,
               timer: 1000
             })
+            return this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`)
+          }
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            bus.emit('cart-number', res.data.data.carts.length)
           }
         })
     }

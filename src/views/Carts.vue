@@ -67,6 +67,7 @@
 
 <script>
 import swal from 'sweetalert'
+import bus from '../components/bus'
 
 export default {
   data () {
@@ -89,35 +90,49 @@ export default {
     deleteCart (id) {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
-      this.$http.delete(url).then((res) => {
-        if (res.data.success) {
-          this.getCart()
-          this.isLoading = false
-          swal({
-            text: '商品刪除囉~',
-            buttons: false,
-            timer: 1000
-          })
-        }
-      })
+      this.$http.delete(url)
+        .then((res) => {
+          if (res.data.success) {
+            this.getCart()
+            swal({
+              text: '商品刪除囉~',
+              buttons: false,
+              timer: 1000
+            })
+            return this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`)
+          }
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            bus.emit('cart-number', res.data.data.carts.length)
+          }
+        })
     },
     deleteAllCart () {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/carts`
-      this.$http.delete(url).then((res) => {
-        if (res.data.success) {
-          this.getCart()
-          this.isLoading = false
-          swal({
-            text: '購物車清空囉！~',
-            buttons: false,
-            timer: 1000
-          })
-          setTimeout(() => {
-            this.$router.push('/products')
-          }, 1000)
-        }
-      })
+      this.$http.delete(url)
+        .then((res) => {
+          if (res.data.success) {
+            this.getCart()
+            swal({
+              text: '購物車清空囉！~',
+              buttons: false,
+              timer: 1000
+            })
+            setTimeout(() => {
+              this.$router.push('/products')
+            }, 1000)
+            return this.$http.get(`${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`)
+          }
+        })
+        .then((res) => {
+          if (res.data.success) {
+            this.isLoading = false
+            bus.emit('cart-number', res.data.data.carts.length)
+          }
+        })
     },
     updateCart (cart, value) {
       if (value === 'minus') {
