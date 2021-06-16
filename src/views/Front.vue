@@ -17,7 +17,7 @@
             <router-link to="/products/carts" class="nav-link">
               <div class="carts">
                 <font-awesome-icon :icon="['fas', 'shopping-cart']" class="cartIcon"/>
-                <span class="carts">{{ cartNumber }}</span>
+                <span class="carts">{{ cartNumber || originNumber }}</span>
               </div>
             </router-link>
           </li>
@@ -26,6 +26,7 @@
     </div>
   </nav>
   <div class="container pt-5">
+    <loading :active="isLoading"></loading>
     <router-view></router-view>
   </div>
 </template>
@@ -55,12 +56,28 @@ import bus from '../components/bus'
 export default {
   data () {
     return {
-      cartNumber: ''
+      cartNumber: '',
+      originNumber: '',
+      isLoading: false
+    }
+  },
+  methods: {
+    getCart () {
+      this.isLoading = true
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      this.$http.get(url).then((res) => {
+        if (res.data.success) {
+          this.originNumber = res.data.data.carts.length
+          this.isLoading = false
+        }
+      })
     }
   },
   created () {
+    this.getCart()
     bus.on('cart-number', (data) => {
       this.cartNumber = data
+      this.originNumber = data
     })
   }
 }
