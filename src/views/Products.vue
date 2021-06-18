@@ -93,6 +93,9 @@ export default {
             bus.emit('cart-number', res.data.data.carts.length)
           }
         })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     goToProduct (id) {
       this.$router.push(`/products/${id}`)
@@ -117,6 +120,9 @@ export default {
             this.isLoading = false
             bus.emit('cart-number', res.data.data.carts.length)
           }
+        })
+        .catch((err) => {
+          console.log(err)
         })
     }
   },

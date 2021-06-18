@@ -3,7 +3,7 @@
     <ol class="form-row text-center pl-0 d-flex" style="list-style: none;">
       <li class="col-12 col-md-4">
         <div class="alert alert-dark rounded-pill mb-0 " role="alert">
-            1.輸入訂購資料
+            1.確認訂購商品
         </div>
       </li>
       <li class="col-12 col-md-4">
@@ -62,17 +62,23 @@ export default {
   data () {
     return {
       user: {},
-      message: ''
+      message: '',
+      isLoading: false
     }
   },
   methods: {
     onSubmit (values, { resetForm }) {
+      this.isLoading = false
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`
       this.$http.post(url, { data: { user: this.user, message: this.message } })
         .then((res) => {
           if (res.data.success) {
+            this.isLoading = false
             this.$router.push('/orderSubmit')
           }
+        })
+        .catch((err) => {
+          console.log(err)
         })
       resetForm()
     }

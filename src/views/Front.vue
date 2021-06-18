@@ -65,12 +65,16 @@ export default {
     getCart () {
       this.isLoading = true
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-      this.$http.get(url).then((res) => {
-        if (res.data.success) {
-          this.originNumber = res.data.data.carts.length
-          this.isLoading = false
-        }
-      })
+      this.$http.get(url)
+        .then((res) => {
+          if (res.data.success) {
+            this.originNumber = res.data.data.carts.length
+            this.isLoading = false
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   created () {

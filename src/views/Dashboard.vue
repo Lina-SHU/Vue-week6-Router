@@ -8,7 +8,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/admin/products" class="nav-link">後台產品管理</router-link>
+            <router-link to="/admin/products" class="nav-link">商品管理</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/admin/orders" class="nav-link">訂單管理</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/admin/coupons" class="nav-link">優惠券管理</router-link>
           </li>
         </ul>
       </div>
@@ -32,12 +38,14 @@ export default {
     const url = `${process.env.VUE_APP_API}api/user/check`
     this.$http.post(url)
       .then((res) => {
-        console.log(res)
         if (res.data.success) {
           this.check = true
         } else {
           this.$router.push('/login')
         }
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
 }

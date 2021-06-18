@@ -60,6 +60,9 @@ export default {
             this.product = res.data.product
           }
         })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     add () {
       this.qty += 1
@@ -88,6 +91,9 @@ export default {
             this.isLoading = false
             bus.emit('cart-number', res.data.data.carts.length)
           }
+        })
+        .catch((err) => {
+          console.log(err)
         })
     }
   },

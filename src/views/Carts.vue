@@ -3,7 +3,7 @@
     <ol class="form-row text-center pl-0 d-flex" style="list-style: none;">
       <li class="col-12 col-md-4">
         <div class="alert alert-info rounded-pill mb-0 " role="alert">
-            1.輸入訂購資料
+            1.確認訂購商品
         </div>
       </li>
       <li class="col-12 col-md-4">
@@ -108,6 +108,9 @@ export default {
             bus.emit('cart-number', res.data.data.carts.length)
           }
         })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     deleteAllCart () {
       this.isLoading = true
@@ -133,6 +136,9 @@ export default {
             bus.emit('cart-number', res.data.data.carts.length)
           }
         })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     updateCart (cart, value) {
       if (value === 'minus') {
@@ -146,6 +152,9 @@ export default {
           if (res.data.success) {
             this.getCart()
           }
+        })
+        .catch((err) => {
+          console.log(err)
         })
     },
     goToOrder () {
