@@ -58,6 +58,8 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.product = res.data.product
+          } else if (res.data.message === '找不到產品') {
+            this.$router.push('/products')
           }
         })
         .catch((err) => {
