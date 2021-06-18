@@ -22,7 +22,7 @@
               <td>{{ order.is_paid ? '是':'否' }}</td>
               <td>
                 <button type="button" class="btn btn-primary me-1">明細</button>
-                <button type="button" class="btn btn-outline-danger">刪除</button>
+                <button type="button" class="btn btn-outline-danger" @click="deleteOrder">刪除</button>
               </td>
             </tr>
           </tbody>
@@ -35,6 +35,7 @@
 
 <script>
 import pagination from '../../components/Pagination.vue'
+import swal from 'sweetalert'
 
 export default {
   data () {
@@ -62,6 +63,11 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    deleteOrder () {
+      swal('確認刪除？', {
+        buttons: ['取消', true]
+      })
     }
   },
   mounted () {

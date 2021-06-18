@@ -47,7 +47,7 @@ export default {
       pagination: [],
       isLoading: false,
       temp: {},
-      isNew: ''
+      isNew: 'new'
     }
   },
   components: {
@@ -75,7 +75,6 @@ export default {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${id}`
       this.$http.delete(url)
         .then((res) => {
-          console.log(res)
           if (res.data.success) {
             this.isLoading = false
             swal({
@@ -93,11 +92,11 @@ export default {
     openModal (value, data) {
       if (value === 'new') {
         this.temp = {}
-        this.isNew = value
+        this.isNew = 'new'
         this.$refs.modal.openModal()
       } else if (value === 'edit') {
         this.temp = { ...data }
-        this.isNew = value
+        this.isNew = 'edit'
         this.$refs.modal.openModal()
       }
     }
